@@ -4,12 +4,14 @@ import com.goit.todolist.entity.Note;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 
 @Service
 public class NoteService {
     private final Map<Long, Note> notes;
-public static final String NOTE_DSNT_EXST="Note with id - %s doesn't exist!";
+    private final Random randomId=new Random();
+    public static final String NOTE_DSNT_EXST="Note with id - %s doesn't exist!";
 
     public NoteService() {
         notes = new HashMap<>();
@@ -18,9 +20,9 @@ public static final String NOTE_DSNT_EXST="Note with id - %s doesn't exist!";
     List<Note> listAll(){return new ArrayList<>(notes.values()); } //- повертає список всіх нотаток
     //- додає нову нотатку, генеруючи для цієї нотатки унікальний (випадковий) числовий ідентифікатор, повертає цю ж нотатку з згенерованим ідентифікатором.
     Note add(Note note){
-        if (!notes.containsKey(note.getId())) {
-            notes.put(note.getId(), note);
-        }
+        Long id = generateNoteId();
+        note.setId(id);
+        notes.put(note.getId(), note);
         return note;
     }
 
@@ -55,5 +57,14 @@ public static final String NOTE_DSNT_EXST="Note with id - %s doesn't exist!";
         return Optional.ofNullable(notes.get(id))
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("Get failure."+NOTE_DSNT_EXST, id)));
+    }
+
+    private long generateNoteId() {
+        Long newId;
+        do {
+
+            newId = randomId.nextLong();
+        } while (newId <= 0 || notes.containsKey(newId));
+        return newId;
     }
 }
