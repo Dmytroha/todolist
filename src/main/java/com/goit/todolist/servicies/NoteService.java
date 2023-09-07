@@ -17,9 +17,16 @@ public class NoteService {
         notes = new HashMap<>();
     }
 
-    List<Note> listAll(){return new ArrayList<>(notes.values()); } //- повертає список всіх нотаток
+
+    //- повертає список всіх нотаток
+    public List<Note> listAll(){
+        return new ArrayList<>(notes.values());
+    }
+
+
+
     //- додає нову нотатку, генеруючи для цієї нотатки унікальний (випадковий) числовий ідентифікатор, повертає цю ж нотатку з згенерованим ідентифікатором.
-    Note add(Note note){
+    public Note add(Note note){
         Long id = generateNoteId();
         note.setId(id);
         notes.put(note.getId(), note);
@@ -27,7 +34,7 @@ public class NoteService {
     }
 
     //- видаляє нотатку з вказаним ідентифікатором. Якщо нотатки з ідентифікатором немає - викидає виключення.
-    void deleteById(long id) {
+    public void deleteById(long id) {
 
         Optional.ofNullable(notes.get(id)).ifPresentOrElse(
                 n->notes.remove(n.getId()),
@@ -37,7 +44,7 @@ public class NoteService {
 
     }
     //- шукає нотатку по note.id. Якщо нотатка є - оновлює для неї title та content. Якщо нотатки немає - викидає виключення.
-    void update(Note note){
+    public void update(Note note){
 
         Optional.ofNullable(notes.get(note.getId())).ifPresentOrElse(
                 n -> {
@@ -53,13 +60,13 @@ public class NoteService {
     }
 
     //- повертає нотатку по її ідентифікатору. Якщо нотатки немає - викидає виключення.
-    Note getById(long id) {
+    public Note getById(long id) {
         return Optional.ofNullable(notes.get(id))
                 .orElseThrow(() -> new NoSuchElementException(
                         String.format("Get failure."+NOTE_DSNT_EXST, id)));
     }
 
-    private long generateNoteId() {
+    public long generateNoteId() {
         Long newId;
         do {
 
