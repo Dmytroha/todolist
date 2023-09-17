@@ -6,8 +6,12 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class Note {
+    public Note(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 
     private Long id;
     private String title;
