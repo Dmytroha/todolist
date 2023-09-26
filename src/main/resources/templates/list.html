@@ -34,7 +34,7 @@
             <input type="hidden" name="id" th:value="${note.id}"/>
             <button class="btn btn-info btn-sm" style="width: 70px;" type="submit">Редагувати</button>
           </form>
-          <form th:action="@{/note/delete/{id}(id=${note.id})}" method="post">
+          <form th:action="@{/note/delete(id=${note.id})}" method="post">
             <button class="btn btn-outline-danger btn-sm" style="width: 70px;" type="submit">Видалити</button>
           </form>
         </div>

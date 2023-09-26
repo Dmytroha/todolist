@@ -1,21 +1,32 @@
 package com.goit.todolist.entity;
 
 import lombok.*;
+import jakarta.persistence.*;
 
+@Data
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-
+@Entity
+@Table(name = "note")
 public class Note {
-    public Note(String title, String content) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long id;
+
+    private String title;
+
+    private String content;
+
+    public Note(Long id, String title, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
     }
 
-    private Long id;
-    private String title;
-    private String content;
+    public Note() {
 
+    }
 
 }

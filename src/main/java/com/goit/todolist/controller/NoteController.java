@@ -42,8 +42,8 @@ public class NoteController {
         return modelAndView;
     }
 
-    @PostMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("id") Long id) {
+    @PostMapping("/delete")
+    public ModelAndView delete(@RequestParam("id") Long id) {
         ModelAndView modelAndView = new ModelAndView("redirect:/note/list");
         noteService.deleteById(id);
         return modelAndView;
