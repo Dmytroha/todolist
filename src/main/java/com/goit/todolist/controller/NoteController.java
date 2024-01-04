@@ -3,6 +3,7 @@ package com.goit.todolist.controller;
 import com.goit.todolist.entity.Note;
 import com.goit.todolist.servicies.NoteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
+    @Value("${my.test.property}")
+    private  String myTestProperty;
 
     @GetMapping("/add")
     public ModelAndView getAddPage(Note note) {
@@ -52,6 +55,7 @@ public class NoteController {
     @GetMapping("/list")
     public ModelAndView listAll() {
         ModelAndView modelAndView = new ModelAndView("list");
+        modelAndView.addObject("MyTestProperty",myTestProperty);
         modelAndView.addObject("notes", noteService.listAll());
         return modelAndView;
     }
